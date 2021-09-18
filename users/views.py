@@ -158,6 +158,8 @@ def index(request):
 
 def pms(request):
     n= open('./templates/pmsResponse.json')
+    invoce_objet=dict()
+
     file =json.load(n)
     guest = dict ()
     newguests = list ()
@@ -209,7 +211,7 @@ def pms(request):
             reservation["end_date"] = dateJson(arrival_time_estimated)
             guest["reservation_guest_data"] =reservation
             guest["reservation_id_pms"] = Number
-            newguests.append ( guest )
+            newguests.append ( guest.copy() )
 
         room["room_id_pms"]=guest["room_number"]
         room["room_name"] = rooms['Floor']+'/'+guest["room_number"]
@@ -282,7 +284,7 @@ def pms(request):
         "total" : total,
         "balance" : balance,
         "paid" : paid,
-        "invoice":""
+        "invoice":invoce_objet
 
     }
 
